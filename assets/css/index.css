@@ -225,25 +225,29 @@ body.page {
   align-items: center;
   gap: clamp(10px, 0.9vw, 14px);
   flex: none;
+  max-width: 100%;
 }
 
-.brand__mark {
-  font-family: var(--f-display);
-  font-weight: 800;
-  font-size: clamp(21px, 1.85vw, 27px);
-  letter-spacing: -0.045em;
-  line-height: 0.85;
-  color: var(--ink);
+.brand__logo {
+  display: block;
+  height: clamp(30px, 2.9vw, 44px);
+  width: auto;
+}
+
+.brand__logo--foot {
+  height: clamp(19px, 1.75vw, 27px);
+  max-width: 100%;
 }
 
 .brand__sub {
-  font-size: clamp(7px, 0.55vw, 8px);
+  font-size: clamp(7px, 0.54vw, 7.5px);
   font-weight: 500;
-  letter-spacing: 0.13em;
-  line-height: 1.4;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
   text-transform: uppercase;
   color: var(--muted);
-  max-width: 152px;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .hdr__nav {
@@ -1183,6 +1187,7 @@ body.page {
 }
 
 .foot__brand {
+  min-width: 0;
   padding: clamp(14px, 1.7vw, 26px) clamp(12px, 1.4vw, 22px) clamp(18px, 2vw, 32px) clamp(6px, 0.8vw, 12px);
   display: flex;
   flex-direction: column;
@@ -1191,13 +1196,17 @@ body.page {
   gap: clamp(12px, 1.4vw, 22px);
 }
 
-.brand--foot .brand__mark {
-  font-size: clamp(17px, 1.5vw, 22px);
+.brand--foot {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(8px, 0.85vw, 13px);
+  min-width: 0;
 }
 
 .brand--foot .brand__sub {
-  max-width: 88px;
+  max-width: 100%;
 }
+
 
 .foot__nav {
   display: flex;
@@ -1216,6 +1225,7 @@ body.page {
 }
 
 .foot__side {
+  min-width: 0;
   padding: clamp(14px, 1.7vw, 26px) clamp(12px, 1.5vw, 24px) clamp(18px, 2vw, 32px) clamp(12px, 1.4vw, 22px);
   border-left: 1px solid var(--line-soft);
   display: flex;
