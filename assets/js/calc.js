@@ -1,414 +1,336 @@
-/**
- * calc.js - Интерактивный калькулятор веса и объема продукции АО «НОВЭЛ»
- * Использует оригинальные фотографии оборудования с сайта zaonovel.ru
- */
+/* Калькулятор веса и объёма партии — АО «НОВЭЛ».
+   Данные позиций — с сайта завода (zaonovel.ru): масса и объём упаковки. */
+(function () {
+  'use strict';
 
-const NOVEL_PRODUCTS = [
-  {
-    id: 'kev-21',
-    category: 'thermal',
-    categoryName: 'Тепловое оборудование',
-    name: 'Электрокалорифер КЭВ-21',
-    image: 'assets/img/prod-kev.jpg',
-    specs: {
-      power: '21.0 кВт',
-      performance: '2 200 м³/ч',
-      voltage: '380 В',
-      dims: '400×920×430 мм'
+  var PRODUCTS = [
+    {
+      id: 'kev-21', category: 'thermal', categoryName: 'Тепловое',
+      name: 'Электрокалорифер КЭВ-21', image: 'assets/img/prod-kev.jpg',
+      power: '21 кВт', voltage: '380 В', dims: '400×920×430',
+      weight: 30, volume: 0.158
     },
-    weight: 30.0,
-    volume: 0.158
-  },
-  {
-    id: 'kev-30',
-    category: 'thermal',
-    categoryName: 'Тепловое оборудование',
-    name: 'Электрокалорифер КЭВ-30',
-    image: 'assets/img/prod-kev.jpg',
-    specs: {
-      power: '30.0 кВт',
-      performance: '3 200 м³/ч',
-      voltage: '380 В',
-      dims: '460×1020×470 мм'
+    {
+      id: 'kev-30', category: 'thermal', categoryName: 'Тепловое',
+      name: 'Электрокалорифер КЭВ-30', image: 'assets/img/prod-kev.jpg',
+      power: '30 кВт', voltage: '380 В', dims: '460×1020×470',
+      weight: 38, volume: 0.220
     },
-    weight: 38.0,
-    volume: 0.220
-  },
-  {
-    id: 'pet-2',
-    category: 'thermal',
-    categoryName: 'Тепловое оборудование',
-    name: 'Электрообогреватель ПЭТ-2 (380В)',
-    image: 'assets/img/prod-pet.jpg',
-    specs: {
-      power: '1.0 кВт',
-      performance: 'Конвекционный',
-      voltage: '380 В',
-      dims: '623×150×150 мм'
+    {
+      id: 'pet-2', category: 'thermal', categoryName: 'Тепловое',
+      name: 'Обогреватель ПЭТ-2 (380 В)', image: 'assets/img/prod-pet.jpg',
+      power: '1 кВт', voltage: '380 В', dims: '623×150×150',
+      weight: 3.5, volume: 0.014
     },
-    weight: 3.5,
-    volume: 0.014
-  },
-  {
-    id: 'pet-4',
-    category: 'thermal',
-    categoryName: 'Тепловое оборудование',
-    name: 'Электрообогреватель ПЭТ-4 со шнуром',
-    image: 'assets/img/prod-pet.jpg',
-    specs: {
-      power: '1.0 кВт',
-      performance: 'Конвекционный',
-      voltage: '220 В',
-      dims: '623×150×150 мм'
+    {
+      id: 'pet-4', category: 'thermal', categoryName: 'Тепловое',
+      name: 'Обогреватель ПЭТ-4 со шнуром', image: 'assets/img/prod-pet.jpg',
+      power: '1 кВт', voltage: '220 В', dims: '623×150×150',
+      weight: 3.5, volume: 0.014
     },
-    weight: 3.5,
-    volume: 0.014
-  },
-  {
-    id: 'konvektor',
-    category: 'thermal',
-    categoryName: 'Тепловое оборудование',
-    name: 'Электроконвектор плинтусный ЭВУС',
-    image: 'assets/img/prod-konvektor.jpg',
-    specs: {
-      power: '1.5 кВт',
-      performance: 'Плинтусный настенный',
-      voltage: '220 В',
-      dims: '1000×140×80 мм'
+    {
+      id: 'evus', category: 'thermal', categoryName: 'Тепловое',
+      name: 'Конвектор плинтусный ЭВУС', image: 'assets/img/prod-konvektor.jpg',
+      power: '1.5 кВт', voltage: '220 В', dims: '1000×140×80',
+      weight: 4.2, volume: 0.018
     },
-    weight: 4.2,
-    volume: 0.018
-  },
-  {
-    id: 'tp-5-150',
-    category: 'welding',
-    categoryName: 'Сварочное оборудование',
-    name: 'Термопенал ТП 5/150-220',
-    image: 'assets/img/prod-tp5.jpg',
-    specs: {
-      power: '0.3 кВт',
-      performance: 'Загрузка: 5 кг',
-      voltage: '220 В',
-      dims: '110×590×110 мм'
+    {
+      id: 'tp-5', category: 'welding', categoryName: 'Сварочное',
+      name: 'Термопенал ТП 5/150-220', image: 'assets/img/prod-tp5.jpg',
+      power: '0.3 кВт', voltage: '220 В', dims: '110×590×110',
+      weight: 2.6, volume: 0.007
     },
-    weight: 2.6,
-    volume: 0.007
-  },
-  {
-    id: 'tp-10-150',
-    category: 'welding',
-    categoryName: 'Сварочное оборудование',
-    name: 'Термопенал ТП 10/150-220',
-    image: 'assets/img/prod-tp10.jpg',
-    specs: {
-      power: '0.6 кВт',
-      performance: 'Загрузка: 10 кг',
-      voltage: '220 В',
-      dims: '150×615×150 мм'
+    {
+      id: 'tp-10', category: 'welding', categoryName: 'Сварочное',
+      name: 'Термопенал ТП 10/150-220', image: 'assets/img/prod-tp10.jpg',
+      power: '0.6 кВт', voltage: '220 В', dims: '150×615×150',
+      weight: 5, volume: 0.014
     },
-    weight: 5.0,
-    volume: 0.014
-  },
-  {
-    id: 'tpk-5',
-    category: 'welding',
-    categoryName: 'Сварочное оборудование',
-    name: 'Термопенал ТПК 5/150-220 (с термометром)',
-    image: 'assets/img/prod-tpk.jpg',
-    specs: {
-      power: '0.3 кВт',
-      performance: 'Загрузка: 5 кг',
-      voltage: '220 В',
-      dims: '155×550×110 мм'
+    {
+      id: 'tpk-5', category: 'welding', categoryName: 'Сварочное',
+      name: 'Термопенал ТПК 5/150-220', image: 'assets/img/prod-tpk.jpg',
+      power: '0.3 кВт', voltage: '220 В', dims: '155×550×110',
+      weight: 3, volume: 0.009
     },
-    weight: 3.0,
-    volume: 0.009
-  },
-  {
-    id: 'ove-4',
-    category: 'explosion',
-    categoryName: 'Взрывозащищенное оборудование',
-    name: 'Обогреватель взрывозащищенный ОВЭ-4',
-    image: 'assets/img/prod-ove.jpg',
-    specs: {
-      power: '1.8 кВт',
-      performance: 'Взрывозащита 1ExdIIBT4',
-      voltage: '380 В',
-      dims: '175×175×1420 мм'
+    {
+      id: 'ove-4', category: 'explosion', categoryName: 'Взрывозащита',
+      name: 'Обогреватель ОВЭ-4', image: 'assets/img/prod-ove.jpg',
+      power: '1.8 кВт', voltage: '380 В', dims: '175×175×1420',
+      weight: 17, volume: 0.043
     },
-    weight: 17.0,
-    volume: 0.043
-  },
-  {
-    id: 'tenbv-5z',
-    category: 'explosion',
-    categoryName: 'Взрывозащищенное оборудование',
-    name: 'Блок нагревателей ТЭНБВ 5Z-220',
-    image: 'assets/img/prod-tenbv.jpg',
-    specs: {
-      power: '5.0 кВт',
-      performance: 'Взрывобезопасный блок',
-      voltage: '220 В',
-      dims: '500×265×245 мм'
-    },
-    weight: 15.0,
-    volume: 0.032
+    {
+      id: 'tenbv-5z', category: 'explosion', categoryName: 'Взрывозащита',
+      name: 'Блок ТЭНБВ 5Z-220', image: 'assets/img/prod-tenbv.jpg',
+      power: '5 кВт', voltage: '220 В', dims: '500×265×245',
+      weight: 15, volume: 0.032
+    }
+  ];
+
+  var cart = {};           // id -> qty
+  var currentCategory = 'all';
+  var currentSearch = '';
+
+  var listEl = document.getElementById('calcItemsGrid');
+  if (!listEl) return;
+
+  var searchEl = document.getElementById('calcSearch');
+  var filtersEl = document.getElementById('calcFilters');
+  var clearBtn = document.getElementById('calcClearBtn');
+  var totalWeightEl = document.getElementById('totalWeight');
+  var totalVolumeEl = document.getElementById('totalVolume');
+  var selectedListEl = document.getElementById('selectedList');
+  var selectedCountEl = document.getElementById('selectedCount');
+  var messageEl = document.getElementById('calcMessage');
+  var barEl = document.getElementById('calcBar');
+  var barWeightEl = document.getElementById('barWeight');
+  var barVolumeEl = document.getElementById('barVolume');
+  var ctaEl = document.querySelector('.csum__cta');
+
+  /* ---------- утилиты ---------- */
+  function byId(id) {
+    for (var i = 0; i < PRODUCTS.length; i++) {
+      if (PRODUCTS[i].id === id) return PRODUCTS[i];
+    }
+    return null;
   }
-];
 
-// Состояние выбранных позиций { productId: qty }
-let cartState = {};
+  function fmtWeight(n) {
+    return n.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
+  }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('calcItemsGrid');
-  const searchInput = document.getElementById('calcSearch');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const clearBtn = document.getElementById('calcClearBtn');
-  const totalWeightEl = document.getElementById('totalWeight');
-  const totalVolumeEl = document.getElementById('totalVolume');
-  const selectedListEl = document.getElementById('selectedList');
-  const selectedCountEl = document.getElementById('selectedCount');
-  const submitCalcBtn = document.getElementById('submitCalcBtn');
-  const inquiryTextarea = document.getElementById('message');
+  function fmtVolume(n) {
+    return n.toLocaleString('ru-RU', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+  }
 
-  let currentCategory = 'all';
-  let currentSearch = '';
+  function esc(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
 
-  // Рендер каталога
-  function renderCatalog() {
-    if (!container) return;
-    
-    const filtered = NOVEL_PRODUCTS.filter(prod => {
-      const matchCat = currentCategory === 'all' || prod.category === currentCategory;
-      const matchSearch = currentSearch === '' || 
-        prod.name.toLowerCase().includes(currentSearch) ||
-        prod.categoryName.toLowerCase().includes(currentSearch);
-      return matchCat && matchSearch;
+  /* ---------- каталог ---------- */
+  function renderList() {
+    var items = PRODUCTS.filter(function (p) {
+      var okCat = currentCategory === 'all' || p.category === currentCategory;
+      var okSearch = !currentSearch ||
+        p.name.toLowerCase().indexOf(currentSearch) > -1 ||
+        p.categoryName.toLowerCase().indexOf(currentSearch) > -1;
+      return okCat && okSearch;
     });
 
-    if (filtered.length === 0) {
-      container.innerHTML = `
-        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:40px;text-align:center;border-radius:var(--radius-md);">
-          <p style="color:var(--color-text-muted);margin-bottom:12px;">Позиции по запросу «${escapeHtml(currentSearch)}» не найдены</p>
-          <button class="btn btn--outline btn--sm" id="resetSearchBtn">Сбросить фильтры</button>
-        </div>
-      `;
-      document.getElementById('resetSearchBtn')?.addEventListener('click', () => {
-        searchInput.value = '';
-        currentSearch = '';
-        currentCategory = 'all';
-        filterBtns.forEach(b => b.classList.toggle('active', b.dataset.category === 'all'));
-        renderCatalog();
-      });
+    if (!items.length) {
+      listEl.innerHTML =
+        '<p class="calc__empty">По запросу «' + esc(currentSearch) + '» ничего нет. ' +
+        '<button type="button" class="chip" data-reset="1">Сбросить фильтр</button></p>';
       return;
     }
 
-    container.innerHTML = filtered.map(item => {
-      const inCart = cartState[item.id] || 0;
-      return `
-        <div class="calc-card" data-id="${item.id}">
-          <div class="calc-card__thumb">
-            <img src="${item.image}" alt="${escapeHtml(item.name)}" loading="lazy">
-          </div>
-          <div class="calc-card__main">
-            <div class="calc-card__badge-row">
-              <span class="tech-tag tech-tag--accent">${item.categoryName}</span>
-              <span class="hero__coord">${item.weight} кг · ${item.volume} м³</span>
-            </div>
-            <h3 class="calc-card__title">${item.name}</h3>
-            <div class="calc-card__specs">
-              <div class="calc-card__spec-item">
-                <span class="calc-card__spec-name">Мощность</span>
-                <span class="calc-card__spec-val">${item.specs.power}</span>
-              </div>
-              <div class="calc-card__spec-item">
-                <span class="calc-card__spec-name">Сеть</span>
-                <span class="calc-card__spec-val">${item.specs.voltage}</span>
-              </div>
-              <div class="calc-card__spec-item">
-                <span class="calc-card__spec-name">Габариты</span>
-                <span class="calc-card__spec-val">${item.specs.dims}</span>
-              </div>
-            </div>
-          </div>
-          <div class="calc-card__actions">
-            <div class="qty-control">
-              <button class="qty-btn" onclick="changeCardQty('${item.id}', -1)" aria-label="Уменьшить">-</button>
-              <input type="number" class="qty-input" id="qty-${item.id}" value="${inCart > 0 ? inCart : 1}" min="1" max="999" onchange="setCardQty('${item.id}', this.value)">
-              <button class="qty-btn" onclick="changeCardQty('${item.id}', 1)" aria-label="Увеличить">+</button>
-            </div>
-            <button class="btn ${inCart > 0 ? 'btn--accent' : 'btn--outline'} btn--sm" onclick="toggleCartItem('${item.id}')">
-              ${inCart > 0 ? `В расчете (${inCart} шт)` : '+ Добавить'}
-            </button>
-          </div>
-        </div>
-      `;
-    }).join('');
+    listEl.innerHTML = items.map(function (p) {
+      var qty = cart[p.id] || 0;
+      var isIn = qty > 0;
+      return '' +
+        '<article class="pcard' + (isIn ? ' is-in' : '') + '" data-id="' + p.id + '">' +
+          '<div class="pcard__media">' +
+            '<img src="' + p.image + '" alt="' + esc(p.name) + '" loading="lazy">' +
+          '</div>' +
+          '<div class="pcard__body">' +
+            '<span class="pcard__cat">' + esc(p.categoryName) + '</span>' +
+            '<h3 class="pcard__name">' + esc(p.name) + '</h3>' +
+            '<ul class="pcard__specs">' +
+              '<li><span>Мощность</span><b>' + esc(p.power) + '</b></li>' +
+              '<li><span>Сеть</span><b>' + esc(p.voltage) + '</b></li>' +
+              '<li><span>Габариты, мм</span><b>' + esc(p.dims) + '</b></li>' +
+            '</ul>' +
+          '</div>' +
+          '<div class="pcard__foot">' +
+            '<p class="pcard__mass"><b>' + fmtWeight(p.weight) + ' кг</b> · ' + fmtVolume(p.volume) + ' м³</p>' +
+            '<div class="pcard__ctrl">' +
+              '<div class="stepper">' +
+                '<button type="button" data-act="dec" aria-label="Меньше">−</button>' +
+                '<input type="number" min="1" max="999" value="' + (isIn ? qty : 1) + '" aria-label="Количество">' +
+                '<button type="button" data-act="inc" aria-label="Больше">+</button>' +
+              '</div>' +
+              '<button type="button" class="pcard__add" data-act="toggle"' +
+                (isIn ? ' title="Убрать из расчёта"' : '') + '>' +
+                (isIn ? 'В расчёте · ' + qty : 'Добавить') +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+    }).join('') +
+      '<a class="pcard pcard--cta" href="#request">' +
+        '<span class="pcard__cat">В линейке больше 40 видов</span>' +
+        '<span class="pcard__cta-title">Нужна другая позиция?</span>' +
+        '<span class="pcard__cta-text">Напишите маркировку или задачу — подберём оборудование и посчитаем вес с объёмом.</span>' +
+        '<span class="pcard__cta-arrow" aria-hidden="true">' +
+          '<svg viewBox="0 0 24 24"><path d="M4 12h14.5M13 6l6 6-6 6"/></svg>' +
+        '</span>' +
+      '</a>';
   }
 
-  // Обновление сводки калькулятора
-  function updateSummary() {
-    let totalWeight = 0;
-    let totalVolume = 0;
-    let totalItems = 0;
-    const selectedIds = Object.keys(cartState);
-
-    selectedIds.forEach(id => {
-      const qty = cartState[id];
-      const prod = NOVEL_PRODUCTS.find(p => p.id === id);
-      if (prod && qty > 0) {
-        totalWeight += prod.weight * qty;
-        totalVolume += prod.volume * qty;
-        totalItems += qty;
-      }
+  /* ---------- сводка ---------- */
+  function totals() {
+    var weight = 0, volume = 0, count = 0, positions = 0;
+    Object.keys(cart).forEach(function (id) {
+      var p = byId(id);
+      if (!p) return;
+      var qty = cart[id];
+      weight += p.weight * qty;
+      volume += p.volume * qty;
+      count += qty;
+      positions += 1;
     });
+    return { weight: weight, volume: volume, count: count, positions: positions };
+  }
 
-    if (totalWeightEl) {
-      totalWeightEl.textContent = totalWeight > 0 ? totalWeight.toLocaleString('ru-RU', { maximumFractionDigits: 1 }) : '—';
-    }
-    if (totalVolumeEl) {
-      totalVolumeEl.textContent = totalVolume > 0 ? totalVolume.toFixed(3) : '—';
-    }
-    if (selectedCountEl) {
-      selectedCountEl.textContent = `${totalItems} шт. (${selectedIds.length} поз.)`;
-    }
+  function renderSummary() {
+    var t = totals();
+
+    if (totalWeightEl) totalWeightEl.textContent = t.weight ? fmtWeight(t.weight) : '—';
+    if (totalVolumeEl) totalVolumeEl.textContent = t.volume ? fmtVolume(t.volume) : '—';
+    if (selectedCountEl) selectedCountEl.textContent = t.count + ' шт. · ' + t.positions + ' поз.';
 
     if (selectedListEl) {
-      if (selectedIds.length === 0) {
-        selectedListEl.innerHTML = `
-          <div class="calc-selected-empty">
-            В расчете пока нет позиций.<br>
-            Выберите нужное оборудование слева.
-          </div>
-        `;
+      if (!t.positions) {
+        selectedListEl.innerHTML = '<p class="csum__empty">В расчёте пока пусто.<br>Отметьте оборудование в каталоге.</p>';
       } else {
-        selectedListEl.innerHTML = selectedIds.map(id => {
-          const qty = cartState[id];
-          const prod = NOVEL_PRODUCTS.find(p => p.id === id);
-          if (!prod) return '';
-          return `
-            <div class="selected-row">
-              <div class="selected-row__thumb">
-                <img src="${prod.image}" alt="${escapeHtml(prod.name)}">
-              </div>
-              <div class="selected-row__info">
-                <span class="selected-row__name" title="${prod.name}">${prod.name}</span>
-                <span class="selected-row__stats">${(prod.weight * qty).toFixed(1)} кг · ${(prod.volume * qty).toFixed(3)} м³</span>
-              </div>
-              <div class="selected-row__controls">
-                <span class="selected-row__qty">${qty} шт</span>
-                <button class="selected-row__del" onclick="removeCartItem('${id}')" title="Удалить">✕</button>
-              </div>
-            </div>
-          `;
+        selectedListEl.innerHTML = Object.keys(cart).map(function (id) {
+          var p = byId(id);
+          if (!p) return '';
+          var qty = cart[id];
+          return '' +
+            '<div class="csum-item">' +
+              '<img class="csum-item__img" src="' + p.image + '" alt="">' +
+              '<span class="csum-item__info">' +
+                '<span class="csum-item__name">' + esc(p.name) + '</span>' +
+                '<span class="csum-item__stats">' + fmtWeight(p.weight * qty) + ' кг · ' + fmtVolume(p.volume * qty) + ' м³</span>' +
+              '</span>' +
+              '<span class="csum-item__qty">' + qty + ' шт</span>' +
+              '<button type="button" class="csum-item__del" data-del="' + p.id + '" aria-label="Убрать">✕</button>' +
+            '</div>';
         }).join('');
       }
     }
 
-    // Если есть кнопка перехода к форме с предзаполнением
-    if (submitCalcBtn) {
-      submitCalcBtn.onclick = () => {
-        if (selectedIds.length === 0) {
-          alert('Пожалуйста, добавьте хотя бы одну позицию в расчет.');
-          return;
-        }
+    if (barEl) {
+      barEl.hidden = !t.positions;
+      if (barWeightEl) barWeightEl.textContent = fmtWeight(t.weight);
+      if (barVolumeEl) barVolumeEl.textContent = fmtVolume(t.volume);
+    }
+  }
 
-        const lines = selectedIds.map(id => {
-          const prod = NOVEL_PRODUCTS.find(p => p.id === id);
-          return `• ${prod.name} — ${cartState[id]} шт. (Вес: ${(prod.weight * cartState[id]).toFixed(1)} кг, Объем: ${(prod.volume * cartState[id]).toFixed(3)} м³)`;
+  function renderAll() {
+    renderList();
+    renderSummary();
+  }
+
+  /* ---------- предзаполнение заявки ---------- */
+  function buildSpec() {
+    var lines = Object.keys(cart).map(function (id) {
+      var p = byId(id);
+      var qty = cart[id];
+      return '• ' + p.name + ' — ' + qty + ' шт. (' + fmtWeight(p.weight * qty) + ' кг, ' + fmtVolume(p.volume * qty) + ' м³)';
+    });
+    var t = totals();
+    return 'Расчёт партии по калькулятору:\n' + lines.join('\n') +
+      '\n\nИтого: ' + fmtWeight(t.weight) + ' кг · ' + fmtVolume(t.volume) + ' м³ (' + t.count + ' шт.)' +
+      '\n\nПрошу предоставить КП, сроки поставки и стоимость доставки.';
+  }
+
+  /* ---------- события ---------- */
+  listEl.addEventListener('click', function (e) {
+    var resetBtn = e.target.closest('[data-reset]');
+    if (resetBtn) {
+      currentSearch = '';
+      currentCategory = 'all';
+      if (searchEl) searchEl.value = '';
+      if (filtersEl) {
+        Array.prototype.forEach.call(filtersEl.children, function (b) {
+          b.classList.toggle('is-active', b.dataset.category === 'all');
         });
-
-        const prefillText = `Запрос расчета партии по калькулятору:\n${lines.join('\n')}\n\nИТОГО:\nОбщий вес: ${totalWeight.toFixed(1)} кг\nОбщий объем: ${totalVolume.toFixed(3)} м³\n\nПрошу предоставить КП и сроки поставки.`;
-
-        if (inquiryTextarea) {
-          inquiryTextarea.value = prefillText;
-          document.querySelector('#request')?.scrollIntoView({ behavior: 'smooth' });
-          inquiryTextarea.focus();
-        }
-      };
+      }
+      renderList();
+      return;
     }
-  }
 
-  // Глобальные хелперы для вызова из inline onclick
-  window.changeCardQty = (id, delta) => {
-    const input = document.getElementById(`qty-${id}`);
-    if (!input) return;
-    let val = parseInt(input.value) || 1;
-    val = Math.max(1, val + delta);
-    input.value = val;
-    if (cartState[id]) {
-      cartState[id] = val;
-      updateSummary();
-      renderCatalog();
+    var btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    var card = btn.closest('.pcard');
+    if (!card) return;
+
+    var id = card.dataset.id;
+    var input = card.querySelector('.stepper input');
+    var value = Math.max(1, Math.min(999, parseInt(input.value, 10) || 1));
+    var act = btn.dataset.act;
+
+    if (act === 'inc') value += 1;
+    if (act === 'dec') value -= 1;
+    value = Math.max(1, Math.min(999, value));
+    input.value = value;
+
+    if (act === 'toggle') {
+      if (cart[id]) delete cart[id];
+      else cart[id] = value;
+    } else if (cart[id]) {
+      cart[id] = value;
     }
-  };
 
-  window.setCardQty = (id, val) => {
-    let num = parseInt(val) || 1;
-    num = Math.max(1, num);
-    if (cartState[id]) {
-      cartState[id] = num;
-      updateSummary();
-      renderCatalog();
-    }
-  };
-
-  window.toggleCartItem = (id) => {
-    const input = document.getElementById(`qty-${id}`);
-    const qty = input ? parseInt(input.value) || 1 : 1;
-    if (cartState[id]) {
-      delete cartState[id];
-    } else {
-      cartState[id] = qty;
-    }
-    updateSummary();
-    renderCatalog();
-  };
-
-  window.removeCartItem = (id) => {
-    delete cartState[id];
-    updateSummary();
-    renderCatalog();
-  };
-
-  // Поиск
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      currentSearch = e.target.value.trim().toLowerCase();
-      renderCatalog();
-    });
-  }
-
-  // Фильтры категорий
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategory = btn.dataset.category || 'all';
-      renderCatalog();
-    });
+    renderAll();
   });
 
-  // Очистка
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      cartState = {};
-      updateSummary();
-      renderCatalog();
+  listEl.addEventListener('change', function (e) {
+    var input = e.target.closest('.stepper input');
+    if (!input) return;
+    var card = input.closest('.pcard');
+    var value = Math.max(1, Math.min(999, parseInt(input.value, 10) || 1));
+    input.value = value;
+    if (cart[card.dataset.id]) {
+      cart[card.dataset.id] = value;
+      renderAll();
+    }
+  });
+
+  if (searchEl) {
+    searchEl.addEventListener('input', function () {
+      currentSearch = this.value.trim().toLowerCase();
+      renderList();
     });
   }
 
-  function escapeHtml(str) {
-    return str.replace(/[&<>'"]/g, tag => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '"': '&quot;'
-    }[tag] || tag));
+  if (filtersEl) {
+    filtersEl.addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      currentCategory = chip.dataset.category || 'all';
+      Array.prototype.forEach.call(filtersEl.children, function (b) {
+        b.classList.toggle('is-active', b === chip);
+      });
+      renderList();
+    });
   }
 
-  // Инициализация первого рендера
-  renderCatalog();
-  updateSummary();
-});
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      cart = {};
+      renderAll();
+    });
+  }
+
+  if (selectedListEl) {
+    selectedListEl.addEventListener('click', function (e) {
+      var del = e.target.closest('[data-del]');
+      if (!del) return;
+      delete cart[del.dataset.del];
+      renderAll();
+    });
+  }
+
+  if (ctaEl) {
+    ctaEl.addEventListener('click', function () {
+      if (!messageEl || !Object.keys(cart).length) return;
+      messageEl.value = buildSpec();
+    });
+  }
+
+  renderAll();
+})();
