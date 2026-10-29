@@ -4,7 +4,7 @@
    НОВЭЛ — главная страница
    Визуальная система по референсу 2 (ASC Technology Solutions):
    светлый лист #EDEDED, чёрные архитектурные заголовки,
-   алый #DE3C0D, тёмная полоса фокуса, тросы через первый экран.
+   алый #C0121C, тёмная полоса фокуса, тросы через первый экран.
    ============================================================ */
 
 :root {
@@ -20,8 +20,9 @@
   --ink: #0E0F11;
   --ink-2: #2C2E33;
   --ink-3: #47494F;
-  --accent: #DE3C0D;
-  --accent-2: #F1541F;
+  --accent: #C0121C;
+  --accent-2: #D01A28;
+  --accent-deep: #8E0B13;
 
   --muted: #6D7077;
   --muted-2: #9C9FA5;
@@ -105,24 +106,6 @@ body.page {
 
 .eyebrow--dark {
   color: #9EA2A9;
-}
-
-.idx {
-  font-family: var(--f-body);
-  font-size: clamp(10px, 0.82vw, 12px);
-  font-weight: 500;
-  letter-spacing: 0.13em;
-  color: var(--ink);
-}
-
-.idx--accent {
-  color: var(--accent);
-}
-
-.kicker {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(10px, 1.4vw, 22px);
 }
 
 .is-dim {
@@ -333,8 +316,7 @@ body.page {
   isolation: isolate;
   overflow: hidden;
   padding-bottom: clamp(28px, 3.6vw, 56px);
-  background:
-    radial-gradient(120% 92% at 66% -8%, #F5F5F4 0%, #EFEFEF 34%, #E7E7E7 68%, #DEDEDE 100%);
+  background: var(--paper);
 }
 
 .hero__inner {
@@ -473,12 +455,12 @@ body.page {
 }
 
 .hero__trust-txt {
-  font-size: clamp(9px, 0.68vw, 10.5px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  line-height: 1.6;
+  font-size: clamp(10px, 0.86vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
   text-transform: uppercase;
-  color: #3F4247;
+  color: var(--accent);
 }
 
 /* — визуал — */
@@ -493,14 +475,13 @@ body.page {
   position: relative;
   flex: none;
   width: min(112%, 700px);
-  margin-top: clamp(-38px, -2.6vw, -12px);
+  margin-top: clamp(4px, 0.6vw, 12px);
   margin-right: 0;
 }
 
 .hero__heater {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 26px 44px rgba(22, 24, 30, 0.22));
 }
 
 .hero__tag {
@@ -525,73 +506,25 @@ body.page {
   color: rgba(38, 26, 12, 0.45);
 }
 
-/* — боковые подписи — */
-.hero__scroll {
-  position: absolute;
-  right: clamp(8px, 1.4vw, 26px);
-  top: clamp(18px, 2.6vw, 40px);
-  z-index: 6;
-  font-size: clamp(8px, 0.62vw, 9.5px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  line-height: 1.6;
-  text-transform: uppercase;
-  color: #585B61;
-}
-
-.hero__scroll-txt {
-  display: block;
-  max-width: 11ch;
-}
-
-.hero__scroll-line {
-  display: block;
-  width: 1px;
-  height: clamp(28px, 4.4vw, 62px);
-  margin-top: 10px;
-  background: rgba(14, 15, 17, 0.3);
-}
-
-.hero__scroll-dot {
-  display: block;
-  width: 6px;
-  height: 6px;
-  margin-left: -3px;
-  margin-top: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.hero__more {
-  position: absolute;
-  right: clamp(8px, 1.4vw, 26px);
-  bottom: clamp(46px, 8.2vw, 120px);
-  z-index: 6;
-  font-size: clamp(8.5px, 0.66vw, 10px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  line-height: 1.55;
-  text-transform: uppercase;
-  color: #3F4247;
-}
-
-.hero__more-rule {
-  display: block;
-  width: 34px;
-  height: 1px;
-  margin-bottom: 8px;
-  margin-left: auto;
-  background: rgba(14, 15, 17, 0.32);
-}
-
 /* ============================================================
    02 / FOCUS — тёмная полоса с фото-заливкой
    ============================================================ */
 .focus {
+  --tab-h: clamp(92px, 9.4vw, 138px);
+  --tab-w: clamp(210px, 32%, 470px);
+
   position: relative;
   z-index: 3;
   background: var(--dark);
   color: #fff;
+  clip-path: polygon(
+    0 0,
+    var(--tab-w) 0,
+    calc(var(--tab-w) + var(--tab-h)) var(--tab-h),
+    100% var(--tab-h),
+    100% 100%,
+    0 100%
+  );
 }
 
 /* Фотография — не вставленная картинка, а фоновая заливка полосы:
@@ -602,8 +535,8 @@ body.page {
   background: url("../img/gear-macro.jpg") 52% 50% / cover no-repeat;
   opacity: 0.66;
   filter: brightness(1.18) contrast(1.06);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%, #000 74%, transparent 88%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 20%, #000 74%, transparent 88%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 11%, #000 74%, transparent 88%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 11%, #000 74%, transparent 88%);
 }
 
 .focus__bg::after {
@@ -611,41 +544,23 @@ body.page {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(44% 58% at 26% 98%, rgba(222, 60, 13, 0.24), transparent 72%),
+    radial-gradient(44% 58% at 26% 98%, rgba(192, 18, 28, 0.26), transparent 72%),
     linear-gradient(180deg, rgba(16, 17, 19, 0.42) 0%, transparent 26%, transparent 68%, rgba(16, 17, 19, 0.6) 100%);
 }
 
-/* Язычок полосы: срез под 45° со скруглёнными стыками */
-.focus__tab {
+/* Надзаголовок живёт внутри выреза блока */
+.focus__tag {
   position: absolute;
-  left: 0;
-  top: -43px;
-  display: block;
   z-index: 2;
-  width: clamp(160px, 17.5vw, 262px);
-  height: 44px;
-}
-
-.focus__tab svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.focus__tab path {
-  fill: var(--dark);
-}
-
-.focus__blip {
-  position: absolute;
-  left: clamp(28px, 3.4vw, 52px);
-  top: -58px;
-  width: 2px;
-  height: 22px;
-  background: var(--accent);
-  transform: rotate(24deg);
-  opacity: 0.85;
-  z-index: 2;
+  left: var(--pad);
+  top: clamp(22px, 2.4vw, 38px);
+  margin: 0;
+  font-size: clamp(12px, 1.22vw, 18px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
 }
 
 .focus__grid {
@@ -653,12 +568,12 @@ body.page {
   z-index: 1;
   display: grid;
   grid-template-columns: clamp(250px, 28%, 420px) minmax(0, 1fr) clamp(220px, 21%, 320px);
-  padding-right: var(--pad);
+  padding: var(--tab-h) var(--pad) 0 0;
   min-height: clamp(380px, 31.4vw, 470px);
 }
 
 .focus__copy {
-  padding: clamp(22px, 2.35vw, 36px) clamp(20px, 2.2vw, 34px) clamp(22px, 2.6vw, 40px) var(--pad);
+  padding: clamp(24px, 2.6vw, 40px) clamp(20px, 2.2vw, 34px) clamp(26px, 3vw, 46px) var(--pad);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -685,38 +600,10 @@ body.page {
   margin-top: clamp(20px, 3.2vw, 48px);
 }
 
-/* средняя колонка — зона фотографии с техническими метками */
+/* средняя колонка отдана фотографии */
 .focus__stage {
   position: relative;
   min-height: 100%;
-}
-
-.focus__coords {
-  position: absolute;
-  left: clamp(6px, 1vw, 16px);
-  bottom: clamp(16px, 2vw, 30px);
-  font-family: var(--f-mono);
-  font-size: clamp(8px, 0.62vw, 9.5px);
-  line-height: 1.6;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.focus__cross {
-  position: absolute;
-  font-size: 13px;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.focus__cross--a {
-  left: 4%;
-  top: 38%;
-}
-
-.focus__cross--b {
-  right: 6%;
-  bottom: 18%;
 }
 
 .focus__metrics {
@@ -819,19 +706,18 @@ body.page {
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: clamp(330px, 26vw, 392px);
-  background: #F2F2F2;
-  border: 1px solid rgba(14, 15, 17, 0.07);
+  background: #E4E4E4;
   border-radius: clamp(8px, 0.75vw, 11px);
   overflow: hidden;
-  transition: border-color 0.35s var(--ease), background-color 0.35s var(--ease);
+  transition: background-color 0.35s var(--ease);
 }
 
 .card:hover {
-  background: #F6F6F6;
-  border-color: rgba(14, 15, 17, 0.22);
+  background: #E7E7E7;
 }
 
 .card__body {
@@ -846,31 +732,44 @@ body.page {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: clamp(10px, 1vw, 18px);
   width: 100%;
 }
 
-.card__num {
-  font-size: clamp(9px, 0.68vw, 10.5px);
-  letter-spacing: 0.1em;
-  color: var(--muted);
+.card__arrow {
+  flex: none;
+  margin-top: 1px;
+  color: var(--ink-2);
+  transition: color 0.35s var(--ease), transform 0.45s var(--ease);
 }
 
-.card__plus {
-  font-size: clamp(16px, 1.5vw, 22px);
-  font-weight: 300;
-  line-height: 1;
-  color: var(--ink-2);
-  margin-top: -2px;
+.card__arrow svg {
+  width: clamp(15px, 1.25vw, 19px);
+  height: clamp(15px, 1.25vw, 19px);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  display: block;
+}
+
+.card:hover .card__arrow {
+  color: var(--accent);
+  transform: rotate(-45deg) scale(1.22);
+}
+
+.card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 
 .card__title {
-  margin-top: clamp(16px, 1.9vw, 29px);
+  margin-top: 0;
   font-family: var(--f-display);
   font-size: clamp(14px, 1.2vw, 17.5px);
   font-weight: 600;
   line-height: 1.16;
   letter-spacing: -0.012em;
-  max-width: 92%;
 }
 
 .card__desc {
@@ -880,32 +779,6 @@ body.page {
   line-height: 1.45;
   color: var(--muted);
   max-width: 88%;
-}
-
-.card__go {
-  width: clamp(26px, 2.1vw, 31px);
-  height: clamp(26px, 2.1vw, 31px);
-  margin-top: clamp(14px, 1.6vw, 24px);
-  border: 1px solid rgba(14, 15, 17, 0.38);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--ink);
-  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
-}
-
-.card__go svg {
-  width: 12px;
-  height: 12px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-}
-
-.card:hover .card__go {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
 }
 
 .card__media {
@@ -1159,35 +1032,30 @@ body.page {
     linear-gradient(180deg, rgba(8, 11, 18, 0.72) 0%, rgba(8, 11, 18, 0.28) 26%, rgba(8, 11, 18, 0.06) 52%, rgba(8, 11, 18, 0.3) 100%);
 }
 
-.close__cap-l1 {
-  position: relative;
-  display: inline-block;
-  padding-right: 22px;
-  white-space: nowrap;
-}
-
-.close__cap-l1::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 46%;
-  width: 18px;
-  height: 1.5px;
-  background: var(--accent);
-  transform: rotate(-52deg);
-}
-
 .close__cap {
   position: absolute;
   z-index: 2;
-  left: clamp(20px, 3vw, 46px);
-  top: clamp(24px, 3.4vw, 52px);
-  font-size: clamp(9.5px, 0.75vw, 11px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 0.9vw, 12px);
+  padding: clamp(26px, 3vw, 40px) clamp(16px, 2.2vw, 32px) clamp(14px, 1.6vw, 22px);
+  font-size: clamp(9.5px, 0.76vw, 11.5px);
   font-weight: 500;
   letter-spacing: 0.12em;
-  line-height: 1.85;
+  line-height: 1.3;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.94);
+  color: #fff;
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 11, 18, 0.72) 62%, rgba(8, 11, 18, 0.88) 100%);
+}
+
+.close__cap-mark {
+  flex: none;
+  width: clamp(16px, 1.6vw, 24px);
+  height: 2px;
+  background: var(--accent);
 }
 
 /* — CTA — */
@@ -1234,7 +1102,7 @@ body.page {
 .close__red {
   position: relative;
   flex: 0 0 clamp(186px, 16.8vw, 252px);
-  background: linear-gradient(115deg, var(--accent-2) 0%, var(--accent) 55%, #D2370C 100%);
+  background: linear-gradient(120deg, var(--accent-2) 0%, var(--accent) 52%, var(--accent-deep) 100%);
   color: #fff;
   padding: clamp(18px, 2vw, 32px) clamp(16px, 1.9vw, 28px) clamp(16px, 1.8vw, 28px);
   display: flex;
@@ -1242,25 +1110,6 @@ body.page {
   align-items: flex-end;
   justify-content: space-between;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 32% 100%);
-}
-
-.close__hair {
-  position: absolute;
-  left: 13%;
-  top: 0;
-  width: 1px;
-  height: clamp(38px, 4.4vw, 66px);
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.close__cross {
-  position: absolute;
-  left: 34%;
-  top: 46%;
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.75);
 }
 
 .close__red-title {
@@ -1583,14 +1432,9 @@ body.page {
     font-size: clamp(34px, 8.4vw, 68px);
   }
 
-  .hero__scroll,
-  .hero__more {
-    display: none;
-  }
-
   .focus__grid {
     grid-template-columns: 1fr;
-    padding-right: 0;
+    padding: var(--tab-h) 0 0;
   }
 
   .focus__copy {
@@ -1605,11 +1449,59 @@ body.page {
     order: 2;
     border-left: 0;
     border-top: 1px solid var(--line-dark-soft);
-    padding: 8px var(--pad) 4px;
+    padding: 10px var(--pad) 6px;
+    align-self: stretch;
+  }
+
+  .sol {
+    padding-block: clamp(40px, 7vw, 64px) clamp(34px, 6vw, 56px);
   }
 
   .sol__grid {
     grid-template-columns: 1fr;
+  }
+
+  .sol__lead {
+    max-width: 46ch;
+  }
+
+  .sol__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .card__body {
+    padding: 12px 12px 14px;
+  }
+
+  .card__title {
+    font-size: 13.5px;
+  }
+
+  .card__desc {
+    min-height: 0;
+    font-size: 10px;
+  }
+
+  .card__media {
+    height: 132px;
+  }
+
+  .card:nth-child(3) .card__media {
+    height: 158px;
+  }
+
+  .rev {
+    padding-block: clamp(26px, 4vw, 40px) clamp(34px, 6vw, 56px);
   }
 
   .rev__grid {
@@ -1625,22 +1517,6 @@ body.page {
     max-width: 46ch;
   }
 
-  .sol__lead {
-    max-width: 46ch;
-  }
-
-  .sol__cards {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    min-height: 0;
-  }
-
-  .card__media {
-    height: 190px;
-  }
-
   .close__grid {
     grid-template-columns: 1fr;
   }
@@ -1654,7 +1530,11 @@ body.page {
   .close__cta {
     grid-column: 1;
     grid-row: 2;
-    padding-inline: var(--pad);
+    padding: 24px var(--pad) 26px;
+  }
+
+  .close__title {
+    font-size: clamp(30px, 7.4vw, 44px);
   }
 
   .close__side {
@@ -1665,8 +1545,24 @@ body.page {
   }
 
   .close__red {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 18% 100%);
-    flex-basis: 230px;
+    clip-path: none;
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px var(--pad);
+  }
+
+  .close__red-title {
+    font-size: 12px;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .close__red-btn {
+    margin-right: 0;
+    flex: none;
   }
 
   .foot {
@@ -1712,7 +1608,40 @@ body.page {
   }
 
   .hero__trust {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: clamp(26px, 6vw, 38px);
+  }
+
+  .hero__logos {
+    display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 16px;
+    width: 100%;
+    padding: 0 0 18px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .hero__logos img {
+    height: 18px;
+    max-width: 46%;
+  }
+
+  .hero__trust-txt {
+    font-size: 13px;
+  }
+
+  .card__media,
+  .card:nth-child(3) .card__media {
+    height: 112px;
+  }
+
+  .card__title {
+    font-size: 12.5px;
   }
 
   .focus__title,
