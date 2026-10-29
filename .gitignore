@@ -1,0 +1,21 @@
+# Служебные папки AI-инструментов
+.agents/
+.gemini/
+
+# Временные файлы проверки
+_measure.html
+_smoke.html
+_lightbox.html
+_modalview.html
+.modal/check*
+_*.png
+
+# ОС и редакторы
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Устаревшие рабочие планы агентов
+docs/superpowers/
