@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Калькулятор веса и объёма партии — АО «НОВЭЛ»</title>
-  <meta name="description" content="Соберите партию оборудования НОВЭЛ и посчитайте её вес и объём для расчёта доставки: калориферы КЭВ, обогреватели ПЭТ, термопеналы, печи, взрывозащищённые блоки ТЭНБВ.">
+  <title>Транспортный калькулятор — АО «НОВЭЛ»</title>
+  <meta name="description" content="Соберите партию оборудования НОВЭЛ и посчитайте её вес и объём для расчёта доставки: калориферы КЭВ, обогреватели ПЭТ, термопеналы, блоки ТЭНБВ.">
   <meta name="theme-color" content="#EDEDED">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
   <a class="skip" href="#main">Перейти к содержанию</a>
 
   <!-- ============ HEADER ============ -->
-  <header class="hdr hdr--plain">
+  <header class="hdr">
     <div class="hdr__inner shell">
       <a class="brand" href="index.html" aria-label="НОВЭЛ — на главную">
         <span class="brand__mark">НОВЭЛ</span>
@@ -26,7 +26,6 @@
 
       <nav class="hdr__nav" aria-label="Основная навигация">
         <a href="index.html#solutions">Оборудование</a>
-        <a href="about.html">О заводе</a>
         <a href="index.html#reviews">Благодарности</a>
         <a href="calc.html" aria-current="page">Калькулятор</a>
       </nav>
@@ -50,29 +49,11 @@
     <!-- ============ HERO ============ -->
     <section class="ch" aria-labelledby="ch-title">
       <div class="ch__inner shell">
-        <div class="ch__copy">
-          <p class="eyebrow">Транспортный калькулятор</p>
-          <h1 class="ch__title" id="ch-title">
-            <span>Вес и объём</span>
-            <span>партии.</span>
-            <span class="is-dim">Без звонков.</span>
-          </h1>
-          <p class="ch__lead">
-            Десять ходовых позиций завода. Отметьте нужное, задайте количество —
-            калькулятор сложит массу и объём, чтобы вы сразу прикинули доставку.
-          </p>
-        </div>
-
-        <div class="ch__panel">
-          <div class="ch__panel-inner">
-            <p class="ch__panel-label">Как это работает</p>
-            <ol class="ch__steps">
-              <li>Отметьте позиции в каталоге</li>
-              <li>Укажите количество</li>
-              <li>Отправьте расчёт инженеру</li>
-            </ol>
-          </div>
-        </div>
+        <h1 class="ch__title" id="ch-title">Транспортный<br>калькулятор</h1>
+        <p class="ch__lead">
+          Десять ходовых позиций завода. Отметьте нужное, задайте количество —
+          калькулятор сложит массу и объём, чтобы вы сразу прикинули доставку.
+        </p>
       </div>
     </section>
 
@@ -80,29 +61,60 @@
     <section class="calc" id="calc" aria-labelledby="calc-title">
       <div class="calc__inner shell">
 
-        <div class="calc__head">
-          <h2 class="calc__title" id="calc-title">Каталог для расчёта</h2>
+        <aside class="calc__side" id="calcSide">
 
-          <label class="calc__search">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="11" cy="11" r="7"/>
-              <path d="M16.5 16.5 21 21"/>
-            </svg>
-            <input type="search" id="calcSearch" placeholder="Поиск: КЭВ, ПЭТ, термопенал, ТЭНБВ" autocomplete="off">
-          </label>
-        </div>
+          <div class="filters" id="filters" data-open="true">
+            <button class="filters__toggle" type="button" id="filtersToggle" aria-expanded="true" aria-controls="filtersBody">
+              <span>Категории</span>
+              <svg class="filters__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
 
-        <div class="calc__chips" id="calcFilters" role="group" aria-label="Фильтр по направлению">
-          <button class="chip is-active" data-category="all">Все позиции</button>
-          <button class="chip" data-category="thermal">Тепловое</button>
-          <button class="chip" data-category="welding">Сварочное</button>
-          <button class="chip" data-category="explosion">Взрывозащита</button>
-        </div>
+            <div class="filters__body" id="filtersBody">
+              <ul class="filters__list" id="calcFilters">
+                <li class="filters__item">
+                  <button class="filters__row is-active" type="button" data-category="all">
+                    <span>Все позиции</span>
+                    <i>10</i>
+                  </button>
+                </li>
 
-        <div class="calc__grid">
+                <li class="filters__item">
+                  <button class="filters__row" type="button" data-category="thermal">
+                    <span>Тепловое</span>
+                    <i>5</i>
+                    <svg class="filters__row-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <ul class="filters__sub">
+                    <li><button type="button" data-sub="kev">Калориферы КЭВ<i>2</i></button></li>
+                    <li><button type="button" data-sub="pet">Обогреватели ПЭТ<i>2</i></button></li>
+                    <li><button type="button" data-sub="conv">Конвекторы<i>1</i></button></li>
+                  </ul>
+                </li>
 
-          <div class="calc__list" id="calcItemsGrid">
-            <!-- карточки рендерит calc.js -->
+                <li class="filters__item">
+                  <button class="filters__row" type="button" data-category="welding">
+                    <span>Сварочное</span>
+                    <i>3</i>
+                    <svg class="filters__row-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <ul class="filters__sub">
+                    <li><button type="button" data-sub="tp">Термопеналы<i>3</i></button></li>
+                  </ul>
+                </li>
+
+                <li class="filters__item">
+                  <button class="filters__row" type="button" data-category="explosion">
+                    <span>Взрывозащита</span>
+                    <i>2</i>
+                    <svg class="filters__row-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <ul class="filters__sub">
+                    <li><button type="button" data-sub="ove">Обогреватели<i>1</i></button></li>
+                    <li><button type="button" data-sub="tenbv">Блоки ТЭНБВ<i>1</i></button></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <aside class="csum" id="csum" aria-labelledby="csum-title">
@@ -128,13 +140,31 @@
               <p class="csum__empty">В расчёте пока пусто.<br>Отметьте оборудование в каталоге.</p>
             </div>
 
-            <a class="btn btn--dark csum__cta" href="#request">
+            <a class="btn btn--dark csum__cta" id="csumCta" href="#request">
               <span>Отправить расчёт</span>
               <svg class="ico-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14.5M13 6l6 6-6 6"/></svg>
             </a>
           </aside>
+        </aside>
 
+        <div class="calc__main">
+          <div class="calc__head">
+            <h2 class="calc__title" id="calc-title">Каталог для расчёта</h2>
+
+            <label class="calc__search">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M16.5 16.5 21 21"/>
+              </svg>
+              <input type="search" id="calcSearch" placeholder="Поиск: КЭВ, ПЭТ, термопенал, ТЭНБВ" autocomplete="off">
+            </label>
+          </div>
+
+          <div class="calc__list" id="calcItemsGrid">
+            <!-- карточки рендерит calc.js -->
+          </div>
         </div>
+
       </div>
     </section>
 
@@ -143,7 +173,6 @@
       <div class="creq__inner shell">
 
         <div class="creq__head">
-          <p class="eyebrow">Запрос спецификации</p>
           <h2 class="creq__title" id="creq-title">
             Отправим<br>расчёт<br><span class="is-dim">инженеру.</span>
           </h2>
@@ -212,7 +241,6 @@
 
       <nav class="pfoot__nav" aria-label="Навигация в подвале">
         <a href="index.html#solutions">Оборудование</a>
-        <a href="about.html">О заводе</a>
         <a href="index.html#reviews">Благодарности</a>
         <a href="calc.html">Калькулятор</a>
       </nav>
@@ -227,12 +255,26 @@
   <!-- мобильная плашка итогов -->
   <div class="cbar" id="calcBar" hidden>
     <div class="cbar__inner">
-      <p class="cbar__totals"><b id="barWeight">0</b> кг · <b id="barVolume">0</b> м³</p>
+      <div class="cbar__left">
+        <div class="cbar__thumbs" id="barThumbs"></div>
+        <p class="cbar__totals">
+          <b id="barWeight">0</b> кг · <b id="barVolume">0</b> м³
+          <span id="barCount">0 шт.</span>
+        </p>
+      </div>
       <a class="cbar__btn" href="#request">Расчёт
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14.5M13 6l6 6-6 6"/></svg>
       </a>
     </div>
   </div>
+
+  <!-- виджет «фильтры» на мобильных -->
+  <button class="cfab" id="calcFab" type="button" aria-controls="calcSide" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+    <span>Фильтр</span>
+  </button>
+
+  <div class="calc__backdrop" id="calcBackdrop" hidden></div>
 
   <script src="assets/js/calc.js" defer></script>
 </body>

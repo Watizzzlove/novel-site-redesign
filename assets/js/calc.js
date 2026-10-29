@@ -1,90 +1,83 @@
-/* Калькулятор веса и объёма партии — АО «НОВЭЛ».
+/* Транспортный калькулятор — АО «НОВЭЛ».
    Данные позиций — с сайта завода (zaonovel.ru): масса и объём упаковки. */
 (function () {
   'use strict';
 
   var PRODUCTS = [
-    {
-      id: 'kev-21', category: 'thermal', categoryName: 'Тепловое',
+    { id: 'kev-21', category: 'thermal', categoryName: 'Тепловое', sub: 'kev',
       name: 'Электрокалорифер КЭВ-21', image: 'assets/img/prod-kev.jpg',
-      power: '21 кВт', voltage: '380 В', dims: '400×920×430',
-      weight: 30, volume: 0.158
-    },
-    {
-      id: 'kev-30', category: 'thermal', categoryName: 'Тепловое',
+      power: '21 кВт', voltage: '380 В', dims: '400×920×430', weight: 30, volume: 0.158 },
+
+    { id: 'kev-30', category: 'thermal', categoryName: 'Тепловое', sub: 'kev',
       name: 'Электрокалорифер КЭВ-30', image: 'assets/img/prod-kev.jpg',
-      power: '30 кВт', voltage: '380 В', dims: '460×1020×470',
-      weight: 38, volume: 0.220
-    },
-    {
-      id: 'pet-2', category: 'thermal', categoryName: 'Тепловое',
+      power: '30 кВт', voltage: '380 В', dims: '460×1020×470', weight: 38, volume: 0.220 },
+
+    { id: 'pet-2', category: 'thermal', categoryName: 'Тепловое', sub: 'pet',
       name: 'Обогреватель ПЭТ-2 (380 В)', image: 'assets/img/prod-pet.jpg',
-      power: '1 кВт', voltage: '380 В', dims: '623×150×150',
-      weight: 3.5, volume: 0.014
-    },
-    {
-      id: 'pet-4', category: 'thermal', categoryName: 'Тепловое',
+      power: '1 кВт', voltage: '380 В', dims: '623×150×150', weight: 3.5, volume: 0.014 },
+
+    { id: 'pet-4', category: 'thermal', categoryName: 'Тепловое', sub: 'pet',
       name: 'Обогреватель ПЭТ-4 со шнуром', image: 'assets/img/prod-pet.jpg',
-      power: '1 кВт', voltage: '220 В', dims: '623×150×150',
-      weight: 3.5, volume: 0.014
-    },
-    {
-      id: 'evus', category: 'thermal', categoryName: 'Тепловое',
+      power: '1 кВт', voltage: '220 В', dims: '623×150×150', weight: 3.5, volume: 0.014 },
+
+    { id: 'evus', category: 'thermal', categoryName: 'Тепловое', sub: 'conv',
       name: 'Конвектор плинтусный ЭВУС', image: 'assets/img/prod-konvektor.jpg',
-      power: '1.5 кВт', voltage: '220 В', dims: '1000×140×80',
-      weight: 4.2, volume: 0.018
-    },
-    {
-      id: 'tp-5', category: 'welding', categoryName: 'Сварочное',
+      power: '1.5 кВт', voltage: '220 В', dims: '1000×140×80', weight: 4.2, volume: 0.018 },
+
+    { id: 'tp-5', category: 'welding', categoryName: 'Сварочное', sub: 'tp',
       name: 'Термопенал ТП 5/150-220', image: 'assets/img/prod-tp5.jpg',
-      power: '0.3 кВт', voltage: '220 В', dims: '110×590×110',
-      weight: 2.6, volume: 0.007
-    },
-    {
-      id: 'tp-10', category: 'welding', categoryName: 'Сварочное',
+      power: '0.3 кВт', voltage: '220 В', dims: '110×590×110', weight: 2.6, volume: 0.007 },
+
+    { id: 'tp-10', category: 'welding', categoryName: 'Сварочное', sub: 'tp',
       name: 'Термопенал ТП 10/150-220', image: 'assets/img/prod-tp10.jpg',
-      power: '0.6 кВт', voltage: '220 В', dims: '150×615×150',
-      weight: 5, volume: 0.014
-    },
-    {
-      id: 'tpk-5', category: 'welding', categoryName: 'Сварочное',
+      power: '0.6 кВт', voltage: '220 В', dims: '150×615×150', weight: 5, volume: 0.014 },
+
+    { id: 'tpk-5', category: 'welding', categoryName: 'Сварочное', sub: 'tp',
       name: 'Термопенал ТПК 5/150-220', image: 'assets/img/prod-tpk.jpg',
-      power: '0.3 кВт', voltage: '220 В', dims: '155×550×110',
-      weight: 3, volume: 0.009
-    },
-    {
-      id: 'ove-4', category: 'explosion', categoryName: 'Взрывозащита',
+      power: '0.3 кВт', voltage: '220 В', dims: '155×550×110', weight: 3, volume: 0.009 },
+
+    { id: 'ove-4', category: 'explosion', categoryName: 'Взрывозащита', sub: 'ove',
       name: 'Обогреватель ОВЭ-4', image: 'assets/img/prod-ove.jpg',
-      power: '1.8 кВт', voltage: '380 В', dims: '175×175×1420',
-      weight: 17, volume: 0.043
-    },
-    {
-      id: 'tenbv-5z', category: 'explosion', categoryName: 'Взрывозащита',
+      power: '1.8 кВт', voltage: '380 В', dims: '175×175×1420', weight: 17, volume: 0.043 },
+
+    { id: 'tenbv-5z', category: 'explosion', categoryName: 'Взрывозащита', sub: 'tenbv',
       name: 'Блок ТЭНБВ 5Z-220', image: 'assets/img/prod-tenbv.jpg',
-      power: '5 кВт', voltage: '220 В', dims: '500×265×245',
-      weight: 15, volume: 0.032
-    }
+      power: '5 кВт', voltage: '220 В', dims: '500×265×245', weight: 15, volume: 0.032 }
   ];
 
-  var cart = {};           // id -> qty
-  var currentCategory = 'all';
-  var currentSearch = '';
+  var cart = {};
+  var filterCategory = 'all';
+  var filterSub = '';
+  var filterSearch = '';
 
   var listEl = document.getElementById('calcItemsGrid');
   if (!listEl) return;
 
   var searchEl = document.getElementById('calcSearch');
   var filtersEl = document.getElementById('calcFilters');
+  var filtersBox = document.getElementById('filters');
+  var filtersToggle = document.getElementById('filtersToggle');
   var clearBtn = document.getElementById('calcClearBtn');
   var totalWeightEl = document.getElementById('totalWeight');
   var totalVolumeEl = document.getElementById('totalVolume');
   var selectedListEl = document.getElementById('selectedList');
   var selectedCountEl = document.getElementById('selectedCount');
   var messageEl = document.getElementById('calcMessage');
+  var ctaEl = document.getElementById('csumCta');
+
+  /* мобильные элементы */
+  var sideEl = document.getElementById('calcSide');
+  var fabEl = document.getElementById('calcFab');
+  var backdropEl = document.getElementById('calcBackdrop');
   var barEl = document.getElementById('calcBar');
   var barWeightEl = document.getElementById('barWeight');
   var barVolumeEl = document.getElementById('barVolume');
-  var ctaEl = document.querySelector('.csum__cta');
+  var barCountEl = document.getElementById('barCount');
+  var barThumbsEl = document.getElementById('barThumbs');
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 980px)').matches;
+  }
 
   /* ---------- утилиты ---------- */
   function byId(id) {
@@ -111,17 +104,17 @@
   /* ---------- каталог ---------- */
   function renderList() {
     var items = PRODUCTS.filter(function (p) {
-      var okCat = currentCategory === 'all' || p.category === currentCategory;
-      var okSearch = !currentSearch ||
-        p.name.toLowerCase().indexOf(currentSearch) > -1 ||
-        p.categoryName.toLowerCase().indexOf(currentSearch) > -1;
-      return okCat && okSearch;
+      var okCat = filterCategory === 'all' || p.category === filterCategory;
+      var okSub = !filterSub || p.sub === filterSub;
+      var okSearch = !filterSearch ||
+        p.name.toLowerCase().indexOf(filterSearch) > -1 ||
+        p.categoryName.toLowerCase().indexOf(filterSearch) > -1;
+      return okCat && okSub && okSearch;
     });
 
     if (!items.length) {
       listEl.innerHTML =
-        '<p class="calc__empty">По запросу «' + esc(currentSearch) + '» ничего нет. ' +
-        '<button type="button" class="chip" data-reset="1">Сбросить фильтр</button></p>';
+        '<p class="calc__empty">Ничего не нашлось. <button type="button" class="chip" data-reset="1">Сбросить фильтры</button></p>';
       return;
     }
 
@@ -157,15 +150,7 @@
             '</div>' +
           '</div>' +
         '</article>';
-    }).join('') +
-      '<a class="pcard pcard--cta" href="#request">' +
-        '<span class="pcard__cat">В линейке больше 40 видов</span>' +
-        '<span class="pcard__cta-title">Нужна другая позиция?</span>' +
-        '<span class="pcard__cta-text">Напишите маркировку или задачу — подберём оборудование и посчитаем вес с объёмом.</span>' +
-        '<span class="pcard__cta-arrow" aria-hidden="true">' +
-          '<svg viewBox="0 0 24 24"><path d="M4 12h14.5M13 6l6 6-6 6"/></svg>' +
-        '</span>' +
-      '</a>';
+    }).join('');
   }
 
   /* ---------- сводка ---------- */
@@ -212,10 +197,22 @@
       }
     }
 
+    /* нижняя плашка на мобильных */
     if (barEl) {
       barEl.hidden = !t.positions;
       if (barWeightEl) barWeightEl.textContent = fmtWeight(t.weight);
       if (barVolumeEl) barVolumeEl.textContent = fmtVolume(t.volume);
+      if (barCountEl) barCountEl.textContent = t.count + ' шт.';
+      if (barThumbsEl) {
+        var ids = Object.keys(cart).slice(0, 3);
+        var html = ids.map(function (id) {
+          var p = byId(id);
+          return p ? '<img src="' + p.image + '" alt="">' : '';
+        }).join('');
+        var rest = Object.keys(cart).length - ids.length;
+        if (rest > 0) html += '<span>+' + rest + '</span>';
+        barThumbsEl.innerHTML = html;
+      }
     }
   }
 
@@ -237,18 +234,54 @@
       '\n\nПрошу предоставить КП, сроки поставки и стоимость доставки.';
   }
 
+  /* ---------- фильтры ---------- */
+  function markFilters() {
+    if (!filtersEl) return;
+    Array.prototype.forEach.call(filtersEl.querySelectorAll('[data-category]'), function (b) {
+      var cat = b.dataset.category || 'all';
+      b.classList.toggle('is-active', filterCategory === cat && !filterSub);
+    });
+    Array.prototype.forEach.call(filtersEl.querySelectorAll('[data-sub]'), function (b) {
+      b.classList.toggle('is-active', filterSub === b.dataset.sub);
+    });
+  }
+
+  function setFiltersOpen(open) {
+    if (!filtersBox) return;
+    filtersBox.dataset.open = open ? 'true' : 'false';
+    if (filtersToggle) filtersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  /* ---------- мобильная шторка ---------- */
+  function openSheet() {
+    if (!sideEl) return;
+    setFiltersOpen(true);
+    sideEl.classList.add('is-open');
+    if (backdropEl) { backdropEl.hidden = false; backdropEl.classList.add('is-on'); }
+    if (fabEl) fabEl.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeSheet() {
+    if (!sideEl) return;
+    sideEl.classList.remove('is-open');
+    if (backdropEl) { backdropEl.classList.remove('is-on'); backdropEl.hidden = true; }
+    if (fabEl) fabEl.setAttribute('aria-expanded', 'false');
+  }
+
   /* ---------- события ---------- */
   listEl.addEventListener('click', function (e) {
     var resetBtn = e.target.closest('[data-reset]');
     if (resetBtn) {
-      currentSearch = '';
-      currentCategory = 'all';
+      filterSearch = '';
+      filterCategory = 'all';
+      filterSub = '';
       if (searchEl) searchEl.value = '';
       if (filtersEl) {
-        Array.prototype.forEach.call(filtersEl.children, function (b) {
-          b.classList.toggle('is-active', b.dataset.category === 'all');
+        Array.prototype.forEach.call(filtersEl.querySelectorAll('.filters__item'), function (i) {
+          i.classList.remove('is-open');
         });
       }
+      markFilters();
       renderList();
       return;
     }
@@ -292,19 +325,53 @@
 
   if (searchEl) {
     searchEl.addEventListener('input', function () {
-      currentSearch = this.value.trim().toLowerCase();
+      filterSearch = this.value.trim().toLowerCase();
       renderList();
+    });
+  }
+
+  if (filtersToggle) {
+    filtersToggle.addEventListener('click', function () {
+      setFiltersOpen(filtersBox.dataset.open !== 'true');
     });
   }
 
   if (filtersEl) {
     filtersEl.addEventListener('click', function (e) {
-      var chip = e.target.closest('.chip');
-      if (!chip) return;
-      currentCategory = chip.dataset.category || 'all';
-      Array.prototype.forEach.call(filtersEl.children, function (b) {
-        b.classList.toggle('is-active', b === chip);
-      });
+      var subBtn = e.target.closest('[data-sub]');
+      if (subBtn) {
+        var same = filterSub === subBtn.dataset.sub;
+        if (same) {
+          filterSub = '';
+        } else {
+          filterSub = subBtn.dataset.sub;
+          var parent = subBtn.closest('.filters__item');
+          var catBtn = parent ? parent.querySelector('[data-category]') : null;
+          if (catBtn) filterCategory = catBtn.dataset.category;
+        }
+        markFilters();
+        renderList();
+        return;
+      }
+
+      var catBtn2 = e.target.closest('[data-category]');
+      if (!catBtn2) return;
+      var cat = catBtn2.dataset.category || 'all';
+      var item = catBtn2.closest('.filters__item');
+
+      if (cat === 'all') {
+        filterCategory = 'all';
+        filterSub = '';
+      } else if (filterCategory === cat) {
+        filterCategory = 'all';
+        filterSub = '';
+        if (item) item.classList.remove('is-open');
+      } else {
+        filterCategory = cat;
+        filterSub = '';
+        if (item) item.classList.add('is-open');
+      }
+      markFilters();
       renderList();
     });
   }
@@ -327,10 +394,28 @@
 
   if (ctaEl) {
     ctaEl.addEventListener('click', function () {
-      if (!messageEl || !Object.keys(cart).length) return;
-      messageEl.value = buildSpec();
+      if (messageEl && Object.keys(cart).length) messageEl.value = buildSpec();
+      if (isMobile()) closeSheet();
     });
   }
+
+  if (fabEl) {
+    fabEl.addEventListener('click', function () {
+      if (sideEl && sideEl.classList.contains('is-open')) closeSheet();
+      else openSheet();
+    });
+  }
+
+  if (backdropEl) {
+    backdropEl.addEventListener('click', closeSheet);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeSheet();
+  });
+
+  /* на десктопе фильтры развёрнуты, на мобильных свёрнуты */
+  setFiltersOpen(!isMobile());
 
   renderAll();
 })();

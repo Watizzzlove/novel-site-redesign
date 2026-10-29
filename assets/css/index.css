@@ -997,6 +997,11 @@ body.page {
    05 / CLOSING + FOOTER
    ============================================================ */
 .close {
+  /* один и тот же вектор для вырезов фото и красной панели */
+  --cut-x: clamp(96px, 10vw, 150px);
+  --cut-y: clamp(170px, 17.6vw, 258px);
+  --mcut: clamp(44px, 13vw, 76px);
+
   position: relative;
   background: var(--paper);
 }
@@ -1009,16 +1014,15 @@ body.page {
 
 /* — фото-панель — */
 .close__media {
-  --cut: clamp(110px, 14.5vw, 220px);
-
   position: relative;
   grid-column: 1;
   grid-row: 1;
   min-height: clamp(420px, 33vw, 500px);
+  /* вырез под тем же углом, что и срез красной панели */
   clip-path: polygon(
     0 0,
-    calc(100% - var(--cut)) 0,
-    100% var(--cut),
+    calc(100% - var(--cut-x)) 0,
+    100% var(--cut-y),
     100% 100%,
     0 100%
   );
@@ -1115,7 +1119,7 @@ body.page {
 
 .close__red {
   position: relative;
-  flex: 0 0 clamp(186px, 16.8vw, 252px);
+  flex: 0 0 var(--cut-y);
   background: linear-gradient(120deg, var(--accent-2) 0%, var(--accent) 52%, var(--accent-deep) 100%);
   color: #fff;
   padding: clamp(18px, 2vw, 32px) clamp(16px, 1.9vw, 28px) clamp(16px, 1.8vw, 28px);
@@ -1123,7 +1127,7 @@ body.page {
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 32% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, var(--cut-x) 100%);
 }
 
 .close__red-title {
@@ -1236,8 +1240,12 @@ body.page {
   letter-spacing: 0.04em;
 }
 
-.foot__socials a {
+.foot__socials a,
+.foot__socials span {
   padding-block: 2px;
+}
+
+.foot__socials a {
   border-bottom: 1px solid transparent;
   transition: border-color 0.25s var(--ease);
 }
@@ -1592,7 +1600,7 @@ body.page {
   .close__media {
     grid-area: media;
     min-height: clamp(250px, 56vw, 340px);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 86%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, var(--mcut) 100%, 0 calc(100% - var(--mcut)));
   }
 
   /* подпись уходит наверх — снизу её срезал бы вырез */
@@ -1605,8 +1613,8 @@ body.page {
 
   .close__cta {
     grid-area: cta;
-    margin-top: calc(-1 * clamp(18px, 4.6vw, 30px));
-    padding: 0 clamp(4px, 1vw, 10px) clamp(18px, 4.4vw, 26px) var(--pad);
+    margin-top: 0;
+    padding: clamp(10px, 2.6vw, 16px) clamp(4px, 1vw, 10px) clamp(18px, 4.4vw, 26px) var(--pad);
   }
 
   .close__title {
@@ -1638,7 +1646,7 @@ body.page {
     gap: clamp(14px, 3.4vw, 22px);
     min-height: clamp(158px, 42vw, 210px);
     padding: clamp(16px, 4vw, 22px) clamp(12px, 3.4vw, 18px);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%, 0 80%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, var(--mcut) 100%, 0 calc(100% - var(--mcut)));
   }
 
   .close__red-title {
