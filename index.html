@@ -6,6 +6,8 @@
   <title>АО «НОВЭЛ» — завод теплового, сварочного и взрывозащищённого оборудования | Миасс</title>
   <meta name="description" content="АО «НОВЭЛ» — российский производитель промышленного оборудования с 1989 года. Завод в Миассе, Челябинская область: электроконвекторы, калориферы КЭВ, обогреватели ПЭТ, термопеналы, печи ЭПСЭ, взрывозащищённые обогреватели и блоки ТЭНБВ.">
   <meta name="theme-color" content="#EDEDED">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="assets/css/reset.css">
@@ -39,7 +41,20 @@
           <span>Оставить заявку</span>
           <svg class="ico-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14.5M13 6l6 6-6 6"/></svg>
         </button>
+        <button class="nav-burger" type="button" id="navBurger" aria-label="Открыть меню"
+                aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
+    </div>
+
+    <div class="mmenu" id="mobileMenu" hidden>
+      <nav class="mmenu__nav" aria-label="Мобильная навигация">
+        <a href="#solutions">Оборудование</a>
+        <a href="#reviews">Благодарности</a>
+        <a href="calc.html">Калькулятор</a>
+        <a href="tel:+73513570510" class="mmenu__phone">+7 (3513) 570-510</a>
+      </nav>
     </div>
   </header>
 
@@ -97,8 +112,6 @@
           <div class="hero__unit">
             <img class="hero__heater" src="assets/img/hero-heater-exploded.png" width="1024" height="1024"
                  alt="Взрыв-схема промышленного электрокалорифера НОВЭЛ: корпус, изоляция, блок ТЭНов и панель управления">
-            <span class="hero__tag" aria-hidden="true">КЭВ-15 // ТЭН-БЛОК</span>
-            <span class="hero__brace" aria-hidden="true">{ Н }</span>
           </div>
         </div>
 
@@ -352,9 +365,9 @@
               <div>
                 <p class="foot__label">Мы в сети</p>
                 <div class="foot__socials">
-                  <span>VK</span>
-                  <span>TG</span>
-                  <span>YT</span>
+                  <a href="https://vk.com" target="_blank" rel="noopener">VK</a>
+                  <a href="https://t.me" target="_blank" rel="noopener">TG</a>
+                  <a href="https://youtube.com" target="_blank" rel="noopener">YT</a>
                 </div>
               </div>
               <p class="foot__copy">
@@ -387,7 +400,7 @@
 
       <form class="modal__form" id="leadForm" action="https://formspree.io/f/xbjngpzp" method="POST">
         <label class="field">
-          <span class="field__lbl">Имя *</span>
+          <span class="field__lbl">Ваше имя *</span>
           <input class="field__input" type="text" name="name" placeholder="Константин" required>
         </label>
 
@@ -396,22 +409,21 @@
           <input class="field__input" type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
         </label>
 
-        <label class="field">
-          <span class="field__lbl">Организация</span>
-          <input class="field__input" type="text" name="company" placeholder="ООО «ПромКомплект»">
+        <label class="field field--wide">
+          <span class="field__lbl">Электронная почта</span>
+          <input class="field__input" type="email" name="email" placeholder="order@company.ru">
         </label>
 
-        <label class="field field--wide">
-          <span class="field__lbl">Задача</span>
-          <textarea class="field__input" name="message" rows="2" placeholder="Маркировка, мощность, условия эксплуатации"></textarea>
+        <label class="modal__check field--wide">
+          <input type="checkbox" required>
+          <span>Ознакомлен с <a href="https://zaonovel.ru/Политика%20конфиденциальности%20АО%20НОВЭЛ.pdf" target="_blank" rel="noopener">политикой конфиденциальности</a></span>
         </label>
 
         <div class="modal__foot">
-          <button class="btn btn--dark" type="submit">
+          <button class="btn btn--accent" type="submit">
             <span>Отправить заявку</span>
             <svg class="ico-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14.5M13 6l6 6-6 6"/></svg>
           </button>
-          <p class="modal__note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
         </div>
       </form>
     </div>
@@ -429,6 +441,7 @@
     </figure>
   </div>
 
+  <script src="assets/js/nav.js" defer></script>
   <script src="assets/js/home.js" defer></script>
 </body>
 </html>

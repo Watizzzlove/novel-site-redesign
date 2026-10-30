@@ -124,14 +124,25 @@
   transition: color 0.25s var(--ease);
 }
 
-.filters__row span {
+.filters__label {
   flex: 1;
 }
 
-.filters__row i {
-  font-style: normal;
+.filters__count {
   font-size: 10.5px;
   color: var(--muted);
+  transition: color 0.25s var(--ease);
+}
+
+.filters__dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
 }
 
 .filters__row:hover {
@@ -142,8 +153,14 @@
   color: var(--accent);
 }
 
-.filters__row.is-active i {
+.filters__row.is-active .filters__count {
   color: var(--accent);
+}
+
+.filters__row.is-active .filters__dot,
+.filters__sub button.is-active .filters__dot {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .filters__row-chev {
@@ -175,7 +192,6 @@
 .filters__sub button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   width: 100%;
   padding: 7px 0 7px 14px;
@@ -196,10 +212,16 @@
   color: var(--accent);
 }
 
-.filters__sub i {
-  font-style: normal;
+.filters__sub button.is-active .filters__count {
+  color: var(--accent);
+}
+
+.filters__sub button .filters__count {
   font-size: 10px;
-  color: var(--muted);
+}
+
+.filters__sub button span:first-child {
+  flex: 1;
 }
 
 /* ---------- СВОДКА ---------- */
@@ -434,8 +456,8 @@
 
 .calc__list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(10px, 1.1vw, 14px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.3vw, 18px);
   margin-top: clamp(14px, 1.8vw, 24px);
 }
 
@@ -454,12 +476,16 @@
 
 /* ---------- КАРТОЧКА ТОВАРА ---------- */
 .pcard {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: clamp(130px, 13vw, 175px) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "media body"
+    "media foot";
   background: #E7E7E7;
   border-radius: 10px;
   overflow: hidden;
-  transition: background-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  transition: background-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 
 .pcard:hover {
@@ -471,28 +497,33 @@
 }
 
 .pcard__media {
-  display: grid;
-  place-items: center;
-  height: clamp(120px, 11vw, 165px);
-  padding: 12px;
-  background: #F0F0F0;
+  grid-area: media;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 140px;
+  padding: 14px;
+  background: transparent;
   overflow: hidden;
 }
 
 .pcard__media img {
   width: 100%;
   height: 100%;
+  max-height: 150px;
   object-fit: contain;
-  transition: transform 0.7s var(--ease);
+  transition: transform 0.6s var(--ease);
 }
 
 .pcard:hover .pcard__media img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .pcard__body {
-  flex: 1;
-  padding: clamp(12px, 1.1vw, 16px) clamp(12px, 1.1vw, 16px) 0;
+  grid-area: body;
+  padding: 14px 16px 6px;
+  min-width: 0;
 }
 
 .pcard__cat {
@@ -504,17 +535,17 @@
 }
 
 .pcard__name {
-  margin-top: 6px;
+  margin-top: 5px;
   font-family: var(--f-display);
-  font-size: clamp(13px, 1.02vw, 15px);
+  font-size: clamp(13.5px, 1.05vw, 15.5px);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
 .pcard__specs {
   display: grid;
-  gap: 3px;
+  gap: 3.5px;
   margin-top: clamp(8px, 1vw, 12px);
   padding: 0;
   list-style: none;
@@ -524,7 +555,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  font-size: clamp(10px, 0.72vw, 11px);
+  font-size: clamp(10.5px, 0.74vw, 11.5px);
   color: var(--muted);
 }
 
@@ -532,12 +563,15 @@
   font-weight: 500;
   color: var(--ink-2);
   text-align: right;
+  white-space: nowrap;
 }
 
 .pcard__foot {
+  grid-area: foot;
   display: grid;
-  gap: 10px;
-  padding: clamp(10px, 1.1vw, 16px);
+  gap: 8px;
+  padding: 6px 16px 14px;
+  min-width: 0;
 }
 
 .pcard__mass {
@@ -660,10 +694,26 @@
 
 .creq__form {
   display: grid;
-  gap: clamp(12px, 1.4vw, 18px);
-  padding: clamp(16px, 2vw, 30px);
-  background: #F5F5F5;
-  border-radius: 12px;
+  gap: clamp(14px, 1.6vw, 20px);
+  padding: 0;
+  background: transparent;
+}
+
+.creq__form .field__input {
+  background: #FFFFFF;
+  border: 1px solid #D5D8DE;
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-family: var(--f-body);
+  font-size: 13.5px;
+  color: var(--ink);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.creq__form .field__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(222, 60, 13, 0.12);
 }
 
 .creq__row {
@@ -679,11 +729,14 @@
   font-size: 11px;
   line-height: 1.45;
   color: var(--muted);
+  cursor: pointer;
+  user-select: none;
 }
 
 .creq__check input {
   margin-top: 2px;
   accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .creq__check a {
@@ -697,6 +750,34 @@
   flex-wrap: wrap;
 }
 
+.creq__btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 8px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(222, 60, 13, 0.5);
+  transition: background-color 0.25s var(--ease), transform 0.2s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.creq__btn:hover {
+  background: var(--accent-2);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -10px rgba(222, 60, 13, 0.6);
+}
+
+.creq__btn:active {
+  transform: translateY(0);
+}
+
 .creq__note {
   font-size: 10.5px;
   line-height: 1.4;
@@ -708,7 +789,7 @@
 .pfoot {
   background: var(--paper);
   border-top: 1px solid var(--line-soft);
-  padding-block: clamp(18px, 2.2vw, 32px);
+  padding-block: clamp(22px, 2.4vw, 34px);
 }
 
 .pfoot__inner {
@@ -717,6 +798,10 @@
   justify-content: space-between;
   gap: clamp(16px, 3vw, 44px);
   flex-wrap: wrap;
+}
+
+.pfoot__brand {
+  min-width: 0;
 }
 
 .pfoot__nav {
@@ -735,18 +820,12 @@
   color: var(--accent);
 }
 
-.pfoot__contacts {
+.pfoot__side {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.pfoot__contacts a {
-  color: var(--ink);
-  font-size: 12.5px;
-  font-weight: 500;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  border-left: 1px solid var(--line-soft);
+  padding-left: clamp(16px, 2vw, 32px);
 }
 
 /* ---------- МОБИЛЬНЫЕ ЭЛЕМЕНТЫ (по умолчанию скрыты) ---------- */
@@ -841,12 +920,24 @@
     gap: 8px;
     padding: 12px 18px;
     border-radius: 999px;
-    background: var(--ink);
+    background: var(--accent);
     color: #fff;
     font-family: var(--f-body);
     font-size: 12px;
     font-weight: 500;
-    box-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 14px 34px -10px rgba(222, 60, 13, 0.6);
+    transition: background-color 0.2s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+  }
+
+  .cfab:hover {
+    background: var(--accent-2);
+  }
+
+  .cfab.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    pointer-events: none;
   }
 
   .cfab svg {
@@ -858,7 +949,8 @@
     stroke-linecap: round;
   }
 
-  .cfab[aria-expanded="true"] {
+  .cfab[aria-expanded="true"],
+  .cfab.has-filters {
     background: var(--accent);
   }
 
@@ -973,34 +1065,41 @@
   }
 
   .pcard {
-    display: grid;
-    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-columns: 100px minmax(0, 1fr);
     grid-template-rows: auto auto;
-    column-gap: 10px;
+    grid-template-areas:
+      "media body"
+      "foot  foot";
+    column-gap: 12px;
   }
 
   .pcard__media {
-    grid-column: 1;
-    grid-row: 1;
+    grid-area: media;
     height: auto;
-    min-height: 88px;
-    padding: 6px;
+    min-height: 100px;
+    padding: 8px;
+  }
+
+  .pcard__media img {
+    max-height: 100px;
   }
 
   .pcard__body {
-    grid-column: 2;
-    grid-row: 1;
-    padding: 10px 10px 0 0;
+    grid-area: body;
+    padding: 10px 12px 4px 0;
+  }
+
+  .pcard__name {
+    font-size: 13px;
+  }
+
+  .pcard__specs li {
+    font-size: 10px;
   }
 
   .pcard__foot {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    padding: 8px 10px 10px;
-  }
-
-  .pcard__specs li:nth-child(3) {
-    display: none;
+    grid-area: foot;
+    padding: 8px 12px 12px;
   }
 
   .creq__row {
@@ -1019,6 +1118,25 @@
   .pfoot__inner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 20px;
+  }
+
+  .pfoot__side {
+    border-left: 0;
+    padding-left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .pfoot__side {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
   }
 }

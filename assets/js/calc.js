@@ -5,49 +5,53 @@
 
   var PRODUCTS = [
     { id: 'kev-21', category: 'thermal', categoryName: 'Тепловое', sub: 'kev',
-      name: 'Электрокалорифер КЭВ-21', image: 'assets/img/prod-kev.jpg',
-      power: '21 кВт', voltage: '380 В', dims: '400×920×430', weight: 30, volume: 0.158 },
+      name: 'Электрокалорифер КЭВ-21', image: 'assets/img/prod-kev.png',
+      power: '21 кВт', voltage: '380 В', dims: '400×920×430 мм', weight: 30, volume: 0.158 },
 
     { id: 'kev-30', category: 'thermal', categoryName: 'Тепловое', sub: 'kev',
-      name: 'Электрокалорифер КЭВ-30', image: 'assets/img/prod-kev.jpg',
-      power: '30 кВт', voltage: '380 В', dims: '460×1020×470', weight: 38, volume: 0.220 },
+      name: 'Электрокалорифер КЭВ-30', image: 'assets/img/prod-kev.png',
+      power: '30 кВт', voltage: '380 В', dims: '460×1020×470 мм', weight: 38, volume: 0.220 },
 
     { id: 'pet-2', category: 'thermal', categoryName: 'Тепловое', sub: 'pet',
-      name: 'Обогреватель ПЭТ-2 (380 В)', image: 'assets/img/prod-pet.jpg',
-      power: '1 кВт', voltage: '380 В', dims: '623×150×150', weight: 3.5, volume: 0.014 },
+      name: 'Обогреватель ПЭТ-2 (380 В)', image: 'assets/img/prod-pet.png',
+      power: '1 кВт', voltage: '380 В', dims: '623×150×150 мм', weight: 3.5, volume: 0.014 },
 
     { id: 'pet-4', category: 'thermal', categoryName: 'Тепловое', sub: 'pet',
-      name: 'Обогреватель ПЭТ-4 со шнуром', image: 'assets/img/prod-pet.jpg',
-      power: '1 кВт', voltage: '220 В', dims: '623×150×150', weight: 3.5, volume: 0.014 },
+      name: 'Обогреватель ПЭТ-4 со шнуром', image: 'assets/img/prod-pet.png',
+      power: '1 кВт', voltage: '220 В', dims: '623×150×150 мм', weight: 3.5, volume: 0.014 },
 
     { id: 'evus', category: 'thermal', categoryName: 'Тепловое', sub: 'conv',
-      name: 'Конвектор плинтусный ЭВУС', image: 'assets/img/prod-konvektor.jpg',
-      power: '1.5 кВт', voltage: '220 В', dims: '1000×140×80', weight: 4.2, volume: 0.018 },
+      name: 'Конвектор плинтусный ЭВУС', image: 'assets/img/prod-konvektor.png',
+      power: '1.5 кВт', voltage: '220 В', dims: '1000×140×80 мм', weight: 4.2, volume: 0.018 },
 
     { id: 'tp-5', category: 'welding', categoryName: 'Сварочное', sub: 'tp',
-      name: 'Термопенал ТП 5/150-220', image: 'assets/img/prod-tp5.jpg',
-      power: '0.3 кВт', voltage: '220 В', dims: '110×590×110', weight: 2.6, volume: 0.007 },
+      name: 'Термопенал ТП 5/150-220', image: 'assets/img/prod-tp5.png',
+      power: '0.3 кВт', voltage: '220 В', dims: '110×590×110 мм', weight: 2.6, volume: 0.007,
+      capacity: '5 кг' },
 
     { id: 'tp-10', category: 'welding', categoryName: 'Сварочное', sub: 'tp',
-      name: 'Термопенал ТП 10/150-220', image: 'assets/img/prod-tp10.jpg',
-      power: '0.6 кВт', voltage: '220 В', dims: '150×615×150', weight: 5, volume: 0.014 },
+      name: 'Термопенал ТП 10/150-220', image: 'assets/img/prod-tp10.png',
+      power: '0.6 кВт', voltage: '220 В', dims: '150×615×150 мм', weight: 5, volume: 0.014,
+      capacity: '10 кг' },
 
     { id: 'tpk-5', category: 'welding', categoryName: 'Сварочное', sub: 'tp',
-      name: 'Термопенал ТПК 5/150-220', image: 'assets/img/prod-tpk.jpg',
-      power: '0.3 кВт', voltage: '220 В', dims: '155×550×110', weight: 3, volume: 0.009 },
+      name: 'Термопенал ТПК 5/150-220', image: 'assets/img/prod-tpk.png',
+      power: '0.3 кВт', voltage: '220 В', dims: '155×550×110 мм', weight: 3, volume: 0.009,
+      capacity: '5 кг' },
 
     { id: 'ove-4', category: 'explosion', categoryName: 'Взрывозащита', sub: 'ove',
-      name: 'Обогреватель ОВЭ-4', image: 'assets/img/prod-ove.jpg',
-      power: '1.8 кВт', voltage: '380 В', dims: '175×175×1420', weight: 17, volume: 0.043 },
+      name: 'Обогреватель ОВЭ-4', image: 'assets/img/prod-ove.png',
+      power: '1.8 кВт', voltage: '380 В', dims: '175×175×1420 мм', weight: 17, volume: 0.043 },
 
     { id: 'tenbv-5z', category: 'explosion', categoryName: 'Взрывозащита', sub: 'tenbv',
-      name: 'Блок ТЭНБВ 5Z-220', image: 'assets/img/prod-tenbv.jpg',
-      power: '5 кВт', voltage: '220 В', dims: '500×265×245', weight: 15, volume: 0.032 }
+      name: 'Блок ТЭНБВ 5Z-220', image: 'assets/img/prod-tenbv.png',
+      power: '5 кВт', voltage: '220 В', dims: '500×265×245 мм', weight: 15, volume: 0.032,
+      capacity: '1 шт.' }
   ];
 
   var cart = {};
-  var filterCategory = 'all';
-  var filterSub = '';
+  var selCats = {};   /* категории, выбранные целиком */
+  var selSubs = {};   /* подкатегории, выбранные по одной */
   var filterSearch = '';
 
   var listEl = document.getElementById('calcItemsGrid');
@@ -103,13 +107,13 @@
 
   /* ---------- каталог ---------- */
   function renderList() {
+    var anyFilter = hasFilters();
     var items = PRODUCTS.filter(function (p) {
-      var okCat = filterCategory === 'all' || p.category === filterCategory;
-      var okSub = !filterSub || p.sub === filterSub;
+      var okFilter = !anyFilter || selCats[p.category] || selSubs[p.sub];
       var okSearch = !filterSearch ||
         p.name.toLowerCase().indexOf(filterSearch) > -1 ||
         p.categoryName.toLowerCase().indexOf(filterSearch) > -1;
-      return okCat && okSub && okSearch;
+      return okFilter && okSearch;
     });
 
     if (!items.length) {
@@ -121,6 +125,15 @@
     listEl.innerHTML = items.map(function (p) {
       var qty = cart[p.id] || 0;
       var isIn = qty > 0;
+      var specs = [
+        '<li><span>Мощность</span><b>' + esc(p.power) + '</b></li>',
+        '<li><span>Сеть</span><b>' + esc(p.voltage) + '</b></li>'
+      ];
+      if (p.capacity) {
+        specs.push('<li><span>' + (p.category === 'welding' ? 'Электроды' : 'ТЭНов') + '</span><b>' + esc(p.capacity) + '</b></li>');
+      }
+      specs.push('<li><span>Габариты</span><b>' + esc(p.dims) + '</b></li>');
+
       return '' +
         '<article class="pcard' + (isIn ? ' is-in' : '') + '" data-id="' + p.id + '">' +
           '<div class="pcard__media">' +
@@ -130,9 +143,7 @@
             '<span class="pcard__cat">' + esc(p.categoryName) + '</span>' +
             '<h3 class="pcard__name">' + esc(p.name) + '</h3>' +
             '<ul class="pcard__specs">' +
-              '<li><span>Мощность</span><b>' + esc(p.power) + '</b></li>' +
-              '<li><span>Сеть</span><b>' + esc(p.voltage) + '</b></li>' +
-              '<li><span>Габариты, мм</span><b>' + esc(p.dims) + '</b></li>' +
+              specs.join('') +
             '</ul>' +
           '</div>' +
           '<div class="pcard__foot">' +
@@ -235,15 +246,110 @@
   }
 
   /* ---------- фильтры ---------- */
+  function hasFilters() {
+    return Object.keys(selCats).length > 0 || Object.keys(selSubs).length > 0;
+  }
+
+  function subsOfCategory(cat) {
+    var out = [];
+    PRODUCTS.forEach(function (p) {
+      if (p.category === cat && out.indexOf(p.sub) === -1) out.push(p.sub);
+    });
+    return out;
+  }
+
+  function selectedSubsCount() {
+    var n = 0;
+    Object.keys(selCats).forEach(function (cat) { n += subsOfCategory(cat).length; });
+    n += Object.keys(selSubs).length;
+    return n;
+  }
+
+  function isSubActive(sub) {
+    if (selSubs[sub]) return true;
+    for (var i = 0; i < PRODUCTS.length; i++) {
+      if (PRODUCTS[i].sub === sub && selCats[PRODUCTS[i].category]) return true;
+    }
+    return false;
+  }
+
+  function resetFilters() {
+    selCats = {};
+    selSubs = {};
+    filterSearch = '';
+    if (searchEl) searchEl.value = '';
+    if (filtersEl) {
+      Array.prototype.forEach.call(filtersEl.querySelectorAll('.filters__item'), function (i) {
+        i.classList.remove('is-open');
+      });
+    }
+    markFilters();
+    renderList();
+  }
+
   function markFilters() {
     if (!filtersEl) return;
+
+    /* «Все позиции» активна, только когда ничего не выбрано */
+    var allBtn = filtersEl.querySelector('[data-reset-all]');
+    if (allBtn) allBtn.classList.toggle('is-active', !hasFilters());
+
     Array.prototype.forEach.call(filtersEl.querySelectorAll('[data-category]'), function (b) {
-      var cat = b.dataset.category || 'all';
-      b.classList.toggle('is-active', filterCategory === cat && !filterSub);
+      b.classList.toggle('is-active', !!selCats[b.dataset.category]);
     });
+
     Array.prototype.forEach.call(filtersEl.querySelectorAll('[data-sub]'), function (b) {
-      b.classList.toggle('is-active', filterSub === b.dataset.sub);
+      b.classList.toggle('is-active', isSubActive(b.dataset.sub));
     });
+
+    updateFab();
+  }
+
+  function toggleCategory(cat, item) {
+    if (selCats[cat]) {
+      delete selCats[cat];
+      subsOfCategory(cat).forEach(function (sub) { delete selSubs[sub]; });
+    } else {
+      selCats[cat] = true;
+      subsOfCategory(cat).forEach(function (sub) { delete selSubs[sub]; });
+      if (item) item.classList.add('is-open');
+    }
+    markFilters();
+    renderList();
+  }
+
+  function toggleSub(sub, cat, item) {
+    if (isSubActive(sub)) {
+      if (selCats[cat]) {
+        /* категория была выбрана целиком — снимаем её и оставляем остальные подкатегории */
+        delete selCats[cat];
+        subsOfCategory(cat).forEach(function (s2) { if (s2 !== sub) selSubs[s2] = true; });
+      } else {
+        delete selSubs[sub];
+      }
+    } else {
+      selSubs[sub] = true;
+      var all = subsOfCategory(cat);
+      var everySelected = all.every(function (s2) {
+        return s2 === sub ? true : !!selSubs[s2];
+      });
+      if (everySelected) {
+        selCats[cat] = true;
+        all.forEach(function (s2) { delete selSubs[s2]; });
+        if (item) item.classList.add('is-open');
+      }
+    }
+    markFilters();
+    renderList();
+  }
+
+  function updateFab() {
+    if (!fabEl) return;
+    var n = selectedSubsCount();
+    var label = fabEl.querySelector('span');
+    if (label) label.textContent = n ? 'Выбрано ' + n : 'Фильтр';
+    fabEl.classList.toggle('has-filters', n > 0);
+    fabEl.setAttribute('aria-label', n ? 'Фильтры, выбрано ' + n : 'Фильтры');
   }
 
   function setFiltersOpen(open) {
@@ -272,17 +378,7 @@
   listEl.addEventListener('click', function (e) {
     var resetBtn = e.target.closest('[data-reset]');
     if (resetBtn) {
-      filterSearch = '';
-      filterCategory = 'all';
-      filterSub = '';
-      if (searchEl) searchEl.value = '';
-      if (filtersEl) {
-        Array.prototype.forEach.call(filtersEl.querySelectorAll('.filters__item'), function (i) {
-          i.classList.remove('is-open');
-        });
-      }
-      markFilters();
-      renderList();
+      resetFilters();
       return;
     }
 
@@ -338,41 +434,23 @@
 
   if (filtersEl) {
     filtersEl.addEventListener('click', function (e) {
-      var subBtn = e.target.closest('[data-sub]');
-      if (subBtn) {
-        var same = filterSub === subBtn.dataset.sub;
-        if (same) {
-          filterSub = '';
-        } else {
-          filterSub = subBtn.dataset.sub;
-          var parent = subBtn.closest('.filters__item');
-          var catBtn = parent ? parent.querySelector('[data-category]') : null;
-          if (catBtn) filterCategory = catBtn.dataset.category;
-        }
-        markFilters();
-        renderList();
+      var allBtn = e.target.closest('[data-reset-all]');
+      if (allBtn) {
+        resetFilters();
         return;
       }
 
-      var catBtn2 = e.target.closest('[data-category]');
-      if (!catBtn2) return;
-      var cat = catBtn2.dataset.category || 'all';
-      var item = catBtn2.closest('.filters__item');
-
-      if (cat === 'all') {
-        filterCategory = 'all';
-        filterSub = '';
-      } else if (filterCategory === cat) {
-        filterCategory = 'all';
-        filterSub = '';
-        if (item) item.classList.remove('is-open');
-      } else {
-        filterCategory = cat;
-        filterSub = '';
-        if (item) item.classList.add('is-open');
+      var subBtn = e.target.closest('[data-sub]');
+      if (subBtn) {
+        var itemSub = subBtn.closest('.filters__item');
+        var catBtnSub = itemSub ? itemSub.querySelector('[data-category]') : null;
+        toggleSub(subBtn.dataset.sub, catBtnSub ? catBtnSub.dataset.category : '', itemSub);
+        return;
       }
-      markFilters();
-      renderList();
+
+      var catBtn = e.target.closest('[data-category]');
+      if (!catBtn) return;
+      toggleCategory(catBtn.dataset.category, catBtn.closest('.filters__item'));
     });
   }
 
@@ -416,6 +494,31 @@
 
   /* на десктопе фильтры развёрнуты, на мобильных свёрнуты */
   setFiltersOpen(!isMobile());
+
+  /* Скрывать кнопку фильтров, когда каталог скрывается из поля зрения */
+  var gridEl = document.getElementById('calcItemsGrid');
+  var requestEl = document.getElementById('request');
+
+  function checkFabVisibility() {
+    if (!fabEl) return;
+    if (!gridEl) return;
+
+    var gridRect = gridEl.getBoundingClientRect();
+    var gridInView = (gridRect.bottom > 80 && gridRect.top < window.innerHeight - 60);
+
+    var reqRect = requestEl ? requestEl.getBoundingClientRect() : null;
+    var reqVisible = reqRect && (reqRect.top < window.innerHeight - 180);
+
+    if (gridInView && !reqVisible) {
+      fabEl.classList.remove('is-hidden');
+    } else {
+      fabEl.classList.add('is-hidden');
+    }
+  }
+
+  window.addEventListener('scroll', checkFabVisibility, { passive: true });
+  window.addEventListener('resize', checkFabVisibility, { passive: true });
+  checkFabVisibility();
 
   renderAll();
 })();
